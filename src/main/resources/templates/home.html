@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org"></html>
+	<head th:replace="base::header">
+		<nav th:replace="base::navbar">
+		</nav>
+	</head>
+	<body>
+		<div class="cover-page" th:style="'background-image:url(' + @{img/home-cover.jpg} + ');'">
+			<h1 class="main-title">Groove</h1>
+			<a href="/products" class="button is-dark is-fullwidth">Browse Products</a>
+		</div>
+		<section class="container">
+			<h2 class="subtitle center"><b>Our Products</b></h2>
+			<div class="columns is-multiline is-centered">
+				<div class="column is-4" th:each="product: ${products}">
+					<div class="card">
+						<div class="card-image">
+						  <figure class="image is-4by3">
+							<img th:src="'data:image/png;base64,' + ${product.setImageBase64(product.image)}" alt="Placeholder image">
+						  </figure>
+						</div>
+						<div class="card-content">
+						<div class="media-content">
+							<h2><b th:text="${'$'+product.price}">45$</b></h2>
+						</div>
+						  <div class="media">
+							<h3 th:text="${product.name}">product name</h3>
+						  </div>
+						  <div>
+							<a th:href="@{/add-to-cart/{id}(id=${product.id})}" class="button is-info is-fullwidth"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+						  </div>
+						</div>
+					  </div>
+				</div>
+			</div>
+		</section>
+		<br><br>
+		<section class="container-fluid middle-content">
+			<div class="columns">
+			  <div class="column is-three-fifths inner-content">
+				<img class="img-fluid" th:src="@{img/inner1.jpg}" alt="">
+			  </div>
+			  <div class="column is-two-fifths inner-content">
+				<h3 class="subtitle inner-content">Get all the latest fashion</h3>
+				<p>Discover the latest trends in men's fashion and style with Men's World. Shop the new range of men's clothes, accessories, shoes, bags and more.</p>
+				<br><img class="img-fluid" th:src="@{img/inner2.jpg}" alt="">
+			  </div>
+			</div>
+		</section>
+		<br> <br>
+		<section class="container">
+			<h2 class="subtitle center"><b>Our Featured Products</b></h2>
+			<div class="columns is-multiline is-centered">
+				<div class="column is-4" th:each="product: ${featured_products}">
+					<div class="card product">
+						<div class="card-image">
+						  <figure class="image is-4by3">
+							<img th:src="'data:image/png;base64,' + ${product.setImageBase64(product.image)}" alt="Placeholder image">
+						  </figure>
+						</div>
+						<div class="card-content">
+						<div class="media-content">
+							<h2><b th:text="${'$'+product.price}"></b></h2>
+						</div>
+						  <div class="media">
+							<h3 th:text="${product.name}"></h3>
+						  </div>
+						  <div>
+							<a class="button is-info is-fullwidth"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+						  </div>
+						</div>
+					  </div>
+				</div>
+			</div>
+		</section>
+	</body>
+	<br><br>
+	<footer th:replace="base::footer">
+	</footer>
+</html>
