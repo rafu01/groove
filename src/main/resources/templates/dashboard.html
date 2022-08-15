@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head th:replace="base::header">
     <nav th:replace="base::navbar"></nav>
 </head>
+
 <body>
     <div class="container">
+        <div class="title has-text-centered">
+            <p class="subtitle"><b th:text="${'Howdy, '+ user.name}"></b></p>
+        </div>
+        <br><br>
         <div class="columns">
-            <div class="column is-one-third">
-                <p class="subtitle"><b th:text="${'Howdy, '+ user.name}"></b></p>
-            </div>
-            <div class="column is-one-third">
+
+            <div class="column is-half">
                 <p class="subtitle">Your Previous Orders</p>
                 <div th:if="${orders!=null}">
                     <table class="table is-striped">
@@ -23,20 +27,24 @@
                         </thead>
                         <tbody>
                             <div th:each="order: ${orders}">
-                            <tr>
-                                <td><p th:text="${order.quantity}"></p></td>
+                                <tr>
+                                    <td>
+                                        <p th:text="${order.quantity}"></p>
+                                    </td>
                                     <td th:each="product: ${order.getProducts()}">
                                         <p th:text="${product.name}"></p>
                                     </td>
-                                <td><p th:text="${order.total}"> Add to cart </p></td>
-                                <!-- <td><p th:text="${order.g}"> Remove </p></td> -->
-                            </tr>
+                                    <td>
+                                        <p th:text="${order.total}"> Add to cart </p>
+                                    </td>
+                                    <!-- <td><p th:text="${order.g}"> Remove </p></td> -->
+                                </tr>
                             </div>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="column is-one-third">
+            <div class="column is-half">
                 <p class="subtitle">Your Favorite List</p>
                 <table class="table is-striped">
                     <thead>
@@ -48,11 +56,15 @@
                     </thead>
                     <tbody>
                         <div th:each="product: ${user.favorite}">
-                        <tr>
-                            <td><p th:text="${product.name}"></p></td>
-                            <td><a th:href="@{/add-to-cart/{id}(id=${product.id})}" class="button is-info"> Add to cart </a></td>
-                            <td><a th:href="@{/customer/delete-favorite/{id}(id=${product.id})}" class="button is-danger"> Remove </a></td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <p th:text="${product.name}"></p>
+                                </td>
+                                <td><a th:href="@{/add-to-cart/{id}(id=${product.id})}" class="button is-info"> Add to
+                                        cart </a></td>
+                                <td><a th:href="@{/customer/delete-favorite/{id}(id=${product.id})}"
+                                        class="button is-danger"> Remove </a></td>
+                            </tr>
                         </div>
                     </tbody>
                 </table>
@@ -60,4 +72,5 @@
         </div>
     </div>
 </body>
+
 </html>
