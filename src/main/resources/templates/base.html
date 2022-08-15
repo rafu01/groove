@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
-  <nav class="navbar" role="navigation" aria-label="main navigation" th:fragment="navbar">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" th:fragment="navbar">
     <div class="navbar-brand">
       <a class="navbar-item logo-item" th:href="@{/}">
         Groove
@@ -34,10 +34,10 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-end">
-        <a class="navbar-item">
-          Smartphones
+        <a class="navbar-item" th:href="@{/phones}">
+          Phones
         </a>
-        <a class="navbar-item">
+        <a class="navbar-item" th:href="@{/laptops}">
           Laptops
         </a>
         <a class="navbar-item">
@@ -101,22 +101,27 @@
 
 
 <footer>
-  <div class="container">
-    <div class="columns center">
-      <div class="column is-one-third">
-        <a href="/">Home</a>
+  <div class="container" style="background-color: black;">
+    <br><br><br>
+    <div class="columns">
+      <div class="column is-3"></div>
+      <div class="column is-2">
+        <a href="">Home</a><br><a href="">About us</a><br><a href="">Contact Us</a><br><a href="">Career</a>
       </div>
-      <div class="column is-one-third">
-        <a href="/">about us</a>
+      <div class="column is-2">
+        <a href="">Phones</a><br><a href="">Laptops</a><br><a href="">Tablets</a><br><a href="">Accessories</a>
       </div>
-      <div class="column is-one-third">
-        <a href="/">contact us</a>
+      <div class="column is-3">
+        <a class="logo-item" th:href="@{/}">
+          Groove
+        </a><br>
+        Your go to site for gadgets..
       </div>
+      <div class="column is-2"></div>
     </div>
-    <div class="center">
-      <p>Copyright©️ Men's World 2022</p>
-    </div>
-    <br>
+    <br><br>
+  </div>
+
 </footer>
 
 </html>

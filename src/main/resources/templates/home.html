@@ -1,80 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.thymeleaf.org"></html>
-	<head th:replace="base::header">
-		<nav th:replace="base::navbar">
-		</nav>
-	</head>
-	<body>
-		<div class="cover-page" th:style="'background-image:url(' + @{img/home-cover.jpg} + ');'">
-			<h1 class="main-title">Groove</h1>
-			<a href="/products" class="button is-dark is-fullwidth">Browse Products</a>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+</html>
+
+<head th:replace="base::header">
+	<nav th:replace="base::navbar">
+	</nav>
+</head>
+
+<body style="margin-top: 85px;">
+	<a th:href="@{/product/18}"><img th:src="@{img/macbook-air-banner.png}" style="width: 100%;" alt=""></a>
+	<section class="container">
+		<div class="columns  is-centered  has-text-centered">
+			<div class="column is-4" style="background-color: #fcc93a;">
+				<br>
+				<h1 class="title has-text-centered">500+ Products</h1>
+				<p style="margin: 15px;">We got everything you need. Our rich collection of gadgets will make sure you
+					can get whatever gadget
+					you want. Just add the products to your cart and rest is on us.</p><br>
+				<a href="/products" class="button"> Browse All Products</a><br><br>
+			</div>
+			<div class="column is-1"></div>
+			<div class="column is-4" style="background-color: #fcc93a;">
+				<br>
+				<h1 class="title has-text-centered">60+ Shops</h1>
+				<p style="margin: 15px;">Our trustworthy partner shops are located in every corner of this country.
+					Their determination for providing the best price will make sure you get your favourite gadget at the
+					cheapest price. </p><br>
+				<a href="/shops" class="button"> Browse All Shops</a><br><br>
+			</div>
 		</div>
-		<section class="container">
-			<h2 class="subtitle center"><b>Our Products</b></h2>
-			<div class="columns is-multiline is-centered">
-				<div class="column is-4" th:each="product: ${products}">
+		<br><br><br>
+		<h2 class="title has-text-centered"><b>Our Featured Phones</b></h2>
+		<div class="columns is-multiline">
+			<div class="column is-3" th:each="product: ${featured_phones}">
+				<a th:href="@{/product/{id}(id=${product.id})}">
 					<div class="card">
 						<div class="card-image">
-						  <figure class="image is-4by3">
-							<img th:src="'data:image/png;base64,' + ${product.setImageBase64(product.image)}" alt="Placeholder image">
-						  </figure>
+							<figure class="image is-4by3">
+								<img th:src="'data:image/png;base64,' + ${product.setImageBase64(product.image)}"
+									alt="Placeholder image">
+							</figure>
 						</div>
 						<div class="card-content">
-						<div class="media-content">
-							<h2><b th:text="${'$'+product.price}">45$</b></h2>
+							<div class="media">
+								<div class="media-content">
+									<p class="title is-5" th:text="${product.name}" style="margin-bottom: 20px;"></p>
+									<a th:href="@{/shops/{id}(id=${product.shop.id})}">
+										<p class="title is-6" th:text="${product.shop.name}">
+										</p>
+									</a>
+								</div>
+							</div>
+							<div class="content">
+								<div class="columns" style="margin-top: 15px;">
+									<div class="column">
+										<p style="color: black;font-size: 20px;" th:text="${'৳ ' + product.price}">
+										</p>
+									</div>
+									<div class="column">
+										<a style="margin-left: 10px;" class="button is-pulled-right card-button"
+											th:href="@{/customer/add-favorite/{id}(id=${product.id})}"><i
+												style="color: #fcc93a;" class="fas fa-heart"></i></a>
+										<a th:href="@{/add-to-cart/{id}(id=${product.id})}"
+											class="button is-pulled-right card-button"><i style="color: #fcc93a;"
+												class="fas fa-solid fa-cart-plus"></i></a> &nbsp;
+
+									</div>
+								</div>
+
+							</div>
 						</div>
-						  <div class="media">
-							<h3 th:text="${product.name}">product name</h3>
-						  </div>
-						  <div>
-							<a th:href="@{/add-to-cart/{id}(id=${product.id})}" class="button is-info is-fullwidth"><i class="fas fa-shopping-cart"></i> Add to cart</a>
-						  </div>
-						</div>
-					  </div>
-				</div>
+					</div>
+				</a>
 			</div>
-		</section>
-		<br><br>
-		<section class="container-fluid middle-content">
-			<div class="columns">
-			  <div class="column is-three-fifths inner-content">
-				<img class="img-fluid" th:src="@{img/inner1.jpg}" alt="">
-			  </div>
-			  <div class="column is-two-fifths inner-content">
-				<h3 class="subtitle inner-content">Get all the latest fashion</h3>
-				<p>Discover the latest trends in men's fashion and style with Men's World. Shop the new range of men's clothes, accessories, shoes, bags and more.</p>
-				<br><img class="img-fluid" th:src="@{img/inner2.jpg}" alt="">
-			  </div>
-			</div>
-		</section>
-		<br> <br>
-		<section class="container">
-			<h2 class="subtitle center"><b>Our Featured Products</b></h2>
-			<div class="columns is-multiline is-centered">
-				<div class="column is-4" th:each="product: ${featured_products}">
-					<div class="card product">
+		</div>
+		<br><br><br>
+		<h2 class="title has-text-centered"><b>Our Featured Laptops</b></h2>
+		<div class="columns is-multiline">
+			<div class="column is-3" th:each="product: ${featured_laptops}">
+				<a th:href="@{/product/{id}(id=${product.id})}">
+					<div class="card">
 						<div class="card-image">
-						  <figure class="image is-4by3">
-							<img th:src="'data:image/png;base64,' + ${product.setImageBase64(product.image)}" alt="Placeholder image">
-						  </figure>
+							<figure class="image is-4by3">
+								<img th:src="'data:image/png;base64,' + ${product.setImageBase64(product.image)}"
+									alt="Placeholder image">
+							</figure>
 						</div>
 						<div class="card-content">
-						<div class="media-content">
-							<h2><b th:text="${'$'+product.price}"></b></h2>
+							<div class="media">
+								<div class="media-content">
+									<p class="title is-5" th:text="${product.name}" style="margin-bottom: 20px;"></p>
+									<a th:href="@{/shops/{id}(id=${product.shop.id})}">
+										<p class="title is-6" th:text="${product.shop.name}">
+										</p>
+									</a>
+								</div>
+							</div>
+							<div class="content">
+								<div class="columns" style="margin-top: 15px;">
+									<div class="column">
+										<p style="color: black;font-size: 20px;" th:text="${'৳ ' + product.price}">
+										</p>
+									</div>
+									<div class="column">
+										<a style="margin-left: 10px;" class="button is-pulled-right card-button"
+											th:href="@{/customer/add-favorite/{id}(id=${product.id})}"><i
+												style="color: #fcc93a;" class="fas fa-heart"></i></a>
+										<a th:href="@{/add-to-cart/{id}(id=${product.id})}"
+											class="button is-pulled-right card-button"><i style="color: #fcc93a;"
+												class="fas fa-solid fa-cart-plus"></i></a> &nbsp;
+
+									</div>
+								</div>
+
+							</div>
 						</div>
-						  <div class="media">
-							<h3 th:text="${product.name}"></h3>
-						  </div>
-						  <div>
-							<a class="button is-info is-fullwidth"><i class="fas fa-shopping-cart"></i> Add to cart</a>
-						  </div>
-						</div>
-					  </div>
-				</div>
+					</div>
+				</a>
 			</div>
-		</section>
-	</body>
-	<br><br>
-	<footer th:replace="base::footer">
-	</footer>
+		</div>
+	</section>
+	<br><br><br>
+	<a th:href="@{/product/18}"><img th:src="@{img/galaxy-watch-banner.jpg}" style="width: 100%;" alt=""></a>
+</body>
+<footer th:replace="base::footer">
+</footer>
+
 </html>

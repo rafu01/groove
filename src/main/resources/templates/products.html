@@ -4,10 +4,11 @@
   <nav th:replace="base::navbar"></nav>
 </head>
 
-<body>
-  <br>
+<body style="margin-top: 130px;">
   <div class="container">
+    <h1 class="title has-text-centered"> Products </h1><br>
     <form class="default-form" th:action="@{/products}" method="post">
+      <div class="column is-1"></div>
       <div class="columns is-centered">
         <div class="column is-5">
           <input class="input" name="name" type="text" placeholder="Search a product">
@@ -18,14 +19,6 @@
               <option selected disabled>Sort by price</option>
               <option>Sort by price (Low to High)</option>
               <option>Sort by price (High to Low)</option>
-            </select>
-          </div>
-        </div>
-        <div class="column is-2">
-          <div class="select" style="width: 100%;">
-            <select name="search_type" style="width: 100%;">
-              <option>Search Product</option>
-              <option>Search Shop</option>
             </select>
           </div>
         </div>
@@ -43,6 +36,7 @@
           <button class="button form-button">Search</button>
         </div>
       </div>
+      <div class="column is-1"></div>
     </form>
   </div>
 
@@ -60,7 +54,11 @@
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
-                  <p class="title is-5" th:text="${product.name}"></p>
+                  <p class="title is-5" th:text="${product.name}" style="margin-bottom: 20px;"></p>
+                  <a th:href="@{/shops/{id}(id=${product.shop.id})}">
+                    <p class="title is-6" th:text="${product.shop.name}">
+                    </p>
+                  </a>
                 </div>
               </div>
               <div class="content">
@@ -107,6 +105,9 @@
       </div>
     </div>
   </div>
+  <br><br><br>
 </body>
+<footer th:replace="base::footer">
+</footer>
 
 </html>
