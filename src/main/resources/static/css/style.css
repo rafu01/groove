@@ -15,6 +15,9 @@
     background-color: var(--color-primary);
     color: var(--color-white);
 }
+body{
+    margin-top: 130px !important;
+}
   
 ::selection {
     background-color: var(--color-primary);
