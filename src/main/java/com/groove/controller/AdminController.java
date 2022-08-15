@@ -116,4 +116,9 @@ public class AdminController {
         model.addAttribute("shops", shops);
         return "view_orders";
     }
+    @GetMapping("signup")
+    public String admin_signup(Model model){
+        model.addAttribute("title", "signup");
+		return "signup";
+    }
 }

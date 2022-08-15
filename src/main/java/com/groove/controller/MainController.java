@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.groove.dao.AdminRepository;
 import com.groove.dao.CategoryRepository;
 import com.groove.dao.CustomerRepository;
 import com.groove.dao.ProductsRepository;
 import com.groove.dao.ShopOwnerRepository;
 import com.groove.dao.ShopRepository;
 import com.groove.dao.UserRepository;
+import com.groove.entities.Admin;
 import com.groove.entities.Category;
 import com.groove.entities.Customer;
 import com.groove.entities.Product;
@@ -50,6 +52,8 @@ public class MainController {
 	private CategoryRepository categoryRepository;
 	@Autowired 
 	private ShopRepository shopRepository;
+	@Autowired
+	private AdminRepository adminRepository;
 	@GetMapping("/")
 	public String home(Model model, Principal principal, HttpSession session) {
 		model.addAttribute("title", "groove");
@@ -149,8 +153,11 @@ public class MainController {
 		if(type.equals("ROLE_SHOP")){
 			user = new ShopOwner();
 		}
-		else{
+		else if(type.equals("ROLE_CUSTOMER")){
 			user = new Customer();
+		}
+		else{
+			user = new Admin();
 		}
 		user.setName(fullname);
 		user.setEmail(email);
@@ -169,9 +176,12 @@ public class MainController {
 				shopowner.setShop(shop);
 				this.shopownerRepository.save(shopowner);
 			}
-			else {
+			else if(type.equals("ROLE_CUSTOMER")){
 				this.customerRepository.save((Customer)user);
 			} 
+			else{
+				this.adminRepository.save((Admin)user);
+			}
 			model.addAttribute("user",user);
 			session.setAttribute("message",new Message("Successfully registered! ","notification is-success"));
 			return new RedirectView("/login");
@@ -183,6 +193,40 @@ public class MainController {
 			return new RedirectView("/signup/"+type);
 		}
 	}
+	// @GetMapping("/admin-signup")
+    // public String admin_signup(Model model){
+    //     model.addAttribute("title", "signup");
+	// 	model.addAttribute("type","ROLE_ADMIN");
+	// 	return "signup";
+    // }
+	// @PostMapping("/admin-signup")
+    // public RedirectView admin_signup(@RequestParam("fullname") String fullname, @RequestParam("email") String email,
+	// 		@RequestParam("password") String password,@PathVariable String type, Model model,
+	// 		HttpSession session) {
+	// 	Admin user = new Admin();
+	// 	user.setName(fullname);
+	// 	user.setEmail(email);
+	// 	user.setRole("ROLE_ADMIN");
+	// 	try {
+	// 		if(customerRepository.getUserByEmail(email)!=null) {
+	// 			throw new Exception("user email already exists");
+	// 		}
+	// 		if(password.length()<6) {
+	// 			throw new Exception("password length must be at least 6");
+	// 		}
+	// 		user.setPassword(passwordEncoder.encode(password));
+	// 		adminRepository.save(user);
+	// 		model.addAttribute("user",user);
+	// 		session.setAttribute("message",new Message("Successfully registered! ","notification is-success"));
+	// 		return new RedirectView("/login");
+	// 	}
+	// 	catch(Exception e) {
+	// 		e.printStackTrace();
+	// 		model.addAttribute("user",user);
+	// 		session.setAttribute("message",new Message(e.getMessage(),"notification is-danger"));
+	// 		return new RedirectView("/admin-signup/"+type);
+	// 	}
+    // }
 	@GetMapping("/selectsignup")
 	public String selectSignup(Model model){
 		model.addAttribute("title", "Select Option");
