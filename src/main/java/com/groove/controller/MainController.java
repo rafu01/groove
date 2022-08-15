@@ -74,25 +74,24 @@ public class MainController {
 		products = productsRepository.findAll();
 		model.addAttribute("cart", cart);
 		model.addAttribute("products", products);
-		List<Product> featured_phones = new ArrayList<>();
+		List<Product> featured = new ArrayList<>();
 		for(Product product: products){
-			if(product.getCategory().getName().equals("Phone")){
-				if(product.getId()==6 ){
-					featured_phones.add(product);
-				}
+			if(product.getId()==6 ){
+				featured.add(product);
+			}
+			if(product.getId()==18 ){
+				featured.add(product);
+			}
+			if(product.getId()==22 ){
+				featured.add(product);
+			}
+			if(product.getId()==23 ){
+				featured.add(product);
 			}
 		}
-		model.addAttribute("featured_phones", featured_phones);
+		model.addAttribute("featured", featured);
 
-		List<Product> featured_laptops = new ArrayList<>();
-		for(Product product: products){
-			if(product.getCategory().getName().equals("Laptop")){
-				if(product.getId()==18 ){
-					featured_laptops.add(product);
-				}
-			}
-		}
-		model.addAttribute("featured_laptops", featured_laptops);
+
 
 
 		model.addAttribute("title", "groove");
